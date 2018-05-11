@@ -1,0 +1,12 @@
+#!/bin/sh
+# postinst script for lbweb-admin
+#
+# see: dh_installdeb(1)
+set -e
+
+if ! id -u 3proxy >/dev/null 2>&1; then
+    adduser --system --no-create-home --disabled-login --group proxy3
+fi
+
+chown proxy3:proxy3 -R /etc/3proxy
+chown proxy3:proxy3 /usr/sbin/3proxy
