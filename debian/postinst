@@ -4,9 +4,19 @@
 # see: dh_installdeb(1)
 set -e
 
-if ! id -u 3proxy >/dev/null 2>&1; then
-    adduser --system --no-create-home --disabled-login --group proxy3
+SYSTEMNAME=proxy3
+
+if ! id -u $SYSTEMNAME > /dev/nul 2>&1; then
+	echo asdfasdf
+    adduser --system --no-create-home --disabled-login --group $SYSTEMNAME
 fi
 
-chown proxy3:proxy3 -R /etc/3proxy
-chown proxy3:proxy3 /usr/sbin/3proxy
+UID=`id -u $SYSTEMNAME`
+GID=`id -g $SYSTEMNAME`
+
+chown $UID:$GID -R /etc/3proxy
+chown $UID:$GID /usr/sbin/3proxy
+
+
+sed -i.bak "s,%SETUID%,$uid,g" /etc/3proxy/main.cfg
+sed -i.bak "s,%SETGID%,$gid,g" /etc/3proxy/main.cfg
