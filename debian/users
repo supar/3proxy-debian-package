@@ -1,0 +1,17 @@
+# users username[:pwtype:password] ... 
+# pwtype is one of: 
+# none (empty) - use system authentication 
+# CL - password is cleartext 
+# CR - password is crypt-style password 
+# NT - password is NT password (in hex) 
+# Example: 
+# users test1:CL:password1 "test2:CR:$1$lFDGlder$pLRb4cU2D7GAT58YQvY49." 
+# users test3:NT:BD7DFBF29A93F93C63CB84790DA00E63
+# Note: double quotes are requiered because password contains $ sign.
+#
+# Create password crypt password
+# openssl passwd -1 -salt qwer  yourpass
+#
+# Default user test with password test
+users "test:CR:$1$qwer$CHFTUFGqkjue9HyhcMHEe1"
+

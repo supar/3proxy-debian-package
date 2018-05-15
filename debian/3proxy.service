@@ -1,0 +1,12 @@
+[Unit]
+Description=3proxy - tiny free proxy (http/socks/pop3/imap/smtp/dns)
+After=syslog.target
+After=network.target
+
+[Service]
+Type=forking
+Restart=always
+ExecStart=/usr/sbin/3proxy /etc/3proxy/main.cfg
+
+[Install]
+WantedBy=multi-user.target
