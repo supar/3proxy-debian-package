@@ -1,1 +1,4 @@
-/etc/3proxy/3proxy.cfg
+/etc/3proxy/main.cfg
+/etc/3proxy/log.cfg
+/etc/3proxy/.users
+/etc/3proxy/socks.cfg
