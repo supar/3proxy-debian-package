@@ -19,14 +19,24 @@ override_dh_auto_test:
 
 override_dh_auto_install:
 	install -g 0 -o 0 -d $(DESTDIR)/usr/sbin/
+	install -g 0 -o 0 -d $(DESTDIR)/lib/systemd/system/
 	install -g 0 -o 0 -d $(DESTDIR)/etc/$(PROJECT)/
 	install -m755 $(PROJECT)/src/$(PROJECT) $(DESTDIR)/usr/sbin/
-	install -m644 $(PROJECT)/cfg/3proxy.cfg.sample $(DESTDIR)/etc/$(PROJECT)/$(PROJECT).cfg
+	install -m644 debian/3proxy.service $(DESTDIR)/lib/systemd/system/
+	install -m644 debian/main.cfg $(DESTDIR)/etc/$(PROJECT)/
+	install -m644 debian/log.cfg $(DESTDIR)/etc/$(PROJECT)/
+	install -m644 debian/socks.cfg $(DESTDIR)/etc/$(PROJECT)/
+	install -m644 debian/users $(DESTDIR)/etc/$(PROJECT)/.users
+
+override_dh_installinit:
+	dh_systemd_enable -p3proxy --name=3proxy 3proxy.service
+	dh_installinit -p3proxy --name=3proxy --no-start --noscripts
+	dh_systemd_start -p3proxy 3proxy.service --no-restart-on-upgrade
 
 # the SHA1 of dockerinit is important: don't strip it
 # also, Go has lots of problems with stripping, so just don't
 override_dh_strip:
 
 %:
-	dh $@
+	dh $@ --with systemd
 
