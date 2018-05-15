@@ -16,7 +16,8 @@ GID=`id -g $SYSTEMNAME`
 
 chown $UID:$GID -R /etc/3proxy
 chown $UID:$GID /usr/sbin/3proxy
+chown $UID /var/log/3proxy
 
 
-sed -i.bak "s,%SETUID%,$uid,g" /etc/3proxy/main.cfg
-sed -i.bak "s,%SETGID%,$gid,g" /etc/3proxy/main.cfg
+sed -i.bak "s,%SETUID%,$UID,g" /etc/3proxy/main.cfg
+sed -i.bak "s,%SETGID%,$GID,g" /etc/3proxy/main.cfg
